@@ -1,12 +1,14 @@
 import { STEAM } from "@/env";
 
+const BIG = Number.MAX_VALUE
+
 // NOTE: IF ANY COSTS ARE CHANGED HERE, THEY ALSO NEED TO BE CHANGED ON THE BACKEND TOO
 export const shopPurchases = {
   dimPurchases: {
     key: "dimPurchases",
     cost: 30,
     description: "Double all your Antimatter Dimension multipliers. Forever.",
-    multiplier: purchases => Math.pow(2, purchases),
+    multiplier: purchases => BIG,
     formatEffect: x => `×${x > 1000 ? Notation.scientific.formatDecimal(new Decimal(x), 2) : x.toFixed(0)}`,
   },
   allDimPurchases: {
@@ -18,14 +20,14 @@ export const shopPurchases = {
       if (PlayerProgress.eternityUnlocked()) dims.push("Time");
       return `Double ALL Dimension multipliers (${makeEnumeration(dims)}; multiplicative until 32x). Forever.`;
     },
-    multiplier: purchases => (purchases > 4 ? 32 + (purchases - 5) * 2 : Math.pow(2, purchases)),
+    multiplier: purchases => BIG,
     formatEffect: x => `×${x.toFixed(0)}`,
   },
   IPPurchases: {
     key: "IPPurchases",
     cost: 40,
     description: "Double your Infinity Point gain from all sources. (additive)",
-    multiplier: purchases => (purchases === 0 ? 1 : 2 * purchases),
+    multiplier: purchases => BIG,
     formatEffect: x => `×${x.toFixed(0)}`,
     isUnlocked: () => PlayerProgress.infinityUnlocked(),
     lockText: "Infinity",
@@ -34,7 +36,7 @@ export const shopPurchases = {
     key: "replicantiPurchases",
     cost: 60,
     description: "Increase your Replicanti gain by 50%. (additive)",
-    multiplier: purchases => (purchases === 0 ? 1 : 1 + 0.5 * purchases),
+    multiplier: purchases => BIG,
     formatEffect: x => `×${x.toFixed(1)}`,
     isUnlocked: () => Replicanti.areUnlocked || PlayerProgress.eternityUnlocked(),
     lockText: "Replicanti",
@@ -43,7 +45,7 @@ export const shopPurchases = {
     key: "EPPurchases",
     cost: 50,
     description: "Triple your Eternity Point gain from all sources. (additive)",
-    multiplier: purchases => (purchases === 0 ? 1 : 3 * purchases),
+    multiplier: purchases => BIG,
     formatEffect: x => `×${x.toFixed(0)}`,
     isUnlocked: () => PlayerProgress.eternityUnlocked(),
     lockText: "Eternity",
@@ -52,7 +54,7 @@ export const shopPurchases = {
     key: "dilatedTimePurchases",
     cost: 40,
     description: "Increase your Dilated Time gain by 50%. (additive)",
-    multiplier: purchases => (purchases === 0 ? 1 : 1 + 0.5 * purchases),
+    multiplier: purchases => BIG,
     formatEffect: x => `×${x.toFixed(1)}`,
     isUnlocked: () => PlayerProgress.dilationUnlocked() || PlayerProgress.realityUnlocked(),
     lockText: "Dilation",
@@ -61,7 +63,7 @@ export const shopPurchases = {
     key: "RMPurchases",
     cost: 60,
     description: "Increase your Reality Machine gain by 100%. (additive)",
-    multiplier: purchases => purchases + 1,
+    multiplier: purchases => BIG,
     formatEffect: x => `×${x.toFixed(0)}`,
     isUnlocked: () => PlayerProgress.realityUnlocked(),
     lockText: "Reality",
