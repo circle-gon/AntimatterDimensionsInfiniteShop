@@ -12,8 +12,10 @@ export const MachineHandler = {
   },
 
   get realityMachineMultiplier() {
-    return ShopPurchase.RMPurchases.currentMult * Teresa.rmMultiplier * Effects.max(1, PerkShopUpgrade.rmMult) *
-      getAdjustedGlyphEffect("effarigrm") * Achievement(167).effectOrDefault(1);
+    return new Decimal(
+      Teresa.rmMultiplier * Effects.max(1, PerkShopUpgrade.rmMult) *
+      getAdjustedGlyphEffect("effarigrm") * Achievement(167).effectOrDefault(1)
+    ).mul(ShopPurchase.RMPurchases.currentMult);
   },
 
   get uncappedRM() {
